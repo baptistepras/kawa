@@ -1,14 +1,3 @@
-/* Le fichier de base a été fourni par Pedro BARTOLOMEI PANDOZI,
-   une partie des tests n'ont donc pas été écrits par moi. Je l'ai 
-   ensuite modifié pour rajouter des tests, notamment ceux sur les 
-   if, while, l'arithmétique, les extends, le typage des méthodes
-   et classes et la redéclaration de classes, variables, méthodes 
-   et attributs. Environ 150 à 200 lignes ont été faites par Pedro,
-   principalement sur le fonctionnement basique des méthodes. Le
-   reste a été fait par moi ou repris des autres fichiers de test.
-   J'ai modifié certains, mais toutes ces modifications se
-   retrouvent de toute manière dans ce fichier. */
-
 /* Certaines méthodes/instructions sont commentées, les décommenter
    une par une permet de vérifier que le typechecker renvoie bien
    une erreur dessus. */
