@@ -1,0 +1,28 @@
+barbavar point p;
+
+barbaclass point {
+  barbaattribute barbaint x;
+  barbaattribute barbaint y;
+
+  barbamethod barbavoid constructor(barbaint a, barbaint b) {
+    barbathis.x = a;
+    barbathis.y = b;
+  }
+
+  barbamethod barbaint somme() {
+    barbaif barbafalse { barbareturn 42; }
+    barbareturn barbathis.x + barbathis.y;
+  }
+}
+
+barbaclass segment {
+  barbaattribute point a;
+  barbaattribute point b;
+}
+
+barbamain {
+  p = barbanew point(2, 1);
+  p.x = 3 + p.x;
+  barbaprint(48 + p.somme());
+  // affiche 54
+}

@@ -1,0 +1,617 @@
+/* Le fichier de base a été fourni par Pedro BARTOLOMEI PANDOZI,
+   une partie des tests n'ont donc pas été écrits par moi. Je l'ai 
+   ensuite modifié pour rajouter des tests, notamment ceux sur les 
+   if, while, l'arithmétique, les extends, le typage des méthodes
+   et classes et la redéclaration de classes, variables, méthodes 
+   et attributs. Environ 150 à 200 lignes ont été faites par Pedro,
+   principalement sur le fonctionnement basique des méthodes. Le
+   reste a été fait par moi ou repris des autres fichiers de test.
+   J'ai modifié certains, mais toutes ces modifications se
+   retrouvent de toute manière dans ce fichier. */
+
+/* Certaines méthodes/instructions sont commentées, les décommenter
+   une par une permet de vérifier que le typechecker renvoie bien
+   une erreur dessus. */
+
+/* L'exécution de ce fichier doit renvoyer:
+  
+  La classe rec1 est récursive, arrêt de l'initialisation automatique
+  42
+  43
+  3
+  5
+  6
+  6
+  100
+  1 
+  1
+  120
+  120
+  120
+  512
+  7
+  5
+  54
+  3
+  12
+  60
+  6
+  42
+  35
+  45
+  200
+  8
+  5
+  -5
+  5
+  -5
+  true
+  false
+  true
+  true
+  true
+  false
+  false
+  true
+  false
+  false
+  false
+  true
+  true
+  false
+  false
+  false
+  true
+  true
+  true
+  false
+  false
+  true
+  true
+  true
+  true
+  false
+  true
+  false
+  true
+  false
+  false
+  false
+  true
+  true
+  false
+  true
+  false
+
+*/
+
+var point p;
+var point y;
+var point yy;
+var paire pt;
+var paire ptt;
+var triple t;
+var int x, a, n;
+var int acc;
+var int res_fact;
+var int counter;
+var int fact_global;
+var bool b;
+var int c;
+var rec1 r1;
+var rec2 r2;
+var int l, m;
+var serie o;
+var barbamama barba;
+/*var int n; */ // Variable n déjà déclarée (typechecker error)     
+
+class barbamama {
+  attribute int barbamama;
+}
+
+class serie {
+  attribute int l, m;
+  attribute int n;
+
+  method void test() {
+    var int l, m;
+    var int n;
+    l = 4;
+    m = 5;
+    n = 6;
+    print(l);
+    print(m);
+    print(n);
+  }
+
+  method int somme() {
+    return this.l + this.m;
+  }
+}
+
+/* class serie {} */ // Classe serie déjà déclarée (typechecker error)
+
+/* class c {} */ // Classe portant le même nom qu'une variable globale (typechecker error)
+ 
+/* class barbapapa { // Méthode portant le même nom qu'un attribut de la même classe (typechecker error)
+  attribute int barbamama;
+  method void barbamama() {}
+}
+*/
+
+class rec1 {
+  attribute rec1 x;
+  attribute rec1 y;
+}
+
+class rec2 {
+    attribute rec1 x;
+}
+
+class point {
+  attribute int x;
+  attribute int y;
+/*  attribute int z, z; */ // Attribut z déjà déclaré (typechecker error)
+
+  method void constructor(int a) {
+    this.x = 2*a;
+    this.y = 2*a;
+  }
+
+  method void point() {
+    print(42);
+  }
+  
+  method int somme() {
+    return this.x + this.y;
+  }
+  
+  method int test_instr_et_acces_globaux(int z) {
+    a = 2;
+    n = 9;
+    acc = 1;
+    while ( n > 0 ) {
+      if (n % 2 != 0) { acc = a*acc; } else {} 
+      a = a*a;
+      n = n/2;
+    }
+    a = 5;
+    return acc;
+  }
+
+  method int test_locals() {
+    /* Si cette variable a le même nom que une globale, on utilise la locale plutôt que la globale */
+    var int a;
+    // print(a); // Renvoie donc 0 car a est la locale, initialisée par défaut à 0
+    a = 7;
+    return a;
+  }
+
+  method void test_void() {
+    print(100);
+  }
+
+  method void vvoid() {}
+
+  method int fact(int n) {
+    if (n == 0) { return 1; } 
+    else { return n * this.fact(n-1); }
+  }
+
+  method int factTerminale(int n, int acc) {
+    if (n == 0) { return acc; } 
+    else { return this.factTerminale(n - 1, acc * n); } 
+  }
+
+  method void fact_globale() {
+    if (counter > 0) {
+      fact_global = fact_global * counter;
+      counter = counter - 1;
+      this.fact_globale();
+    } else { print(fact_global); }
+  }
+
+  method void test_global() {
+    print(fact_global);
+  }
+
+/* Erreurs renvoyées par le typechecker (si décommentées) */
+
+/*  method int somme2(int x, int x) { // x est déclaré 2 fois (typechecker error)
+      return this.in; 
+  }
+*/
+
+/*  method int somme2() { // Pas d'attribut in (typechecker error)
+      return this.in; 
+  }
+*/
+
+/*  method int somme() { // Méthode somme() déjà déclarée (typechecker error)
+      return this.x + this.y; 
+  }
+*/
+
+/*  method void somme() { // Méthode somme() déjà déclarée (typechecker error)
+      print(1); 
+  }
+*/
+
+/*  method void somme2() { // Variable x déclarée 2 fois (typechecker error)
+      var int x, x;
+      print(1); 
+  }
+*/
+
+/*  method void thing() { // Attend un void, reçoit un int (typechecker error)
+      return 1; 
+  }
+*/
+
+/*  method int test() { // Attend un int, reçoit un void (typechecker error)
+      print(1); 
+  }
+*/
+
+/*  method int incoherent() { // Attend un int, reçoit un bool (typechecker error)
+    return false; 
+  }
+*/
+
+/*  method int casif1() { // Ne possède pas un return de type int dans chaque branche (typechecker error)
+    if (false) { return 42; }
+  }
+*/
+
+/*  method int casif2() { // Ne possède pas un return de type int dans chaque branche (typechecker error)
+    if (false) { return 42; } else {}
+  }
+*/
+
+/*  method int casif3() { // Ne possède pas un return de type int dans chaque branche (typechecker error)
+    if (false) { return 42; } else { return false; }
+  }
+*/
+
+/*  method void casif4() { // Ne possède pas un return de type int dans chaque branche (typechecker error)
+    if (false) { return 42; } else { return false; }
+  }
+*/
+
+  method int casif5() { // Doit compiler
+    if (false) { return 42; }
+    return 43;
+  }
+
+  method int casif6() { // Doit compiler
+    if (false) { return 42; }
+    else { return 43; }
+  }
+
+  method int casif7() { // Doit compiler
+    if (false) {}
+    else { return 43; }
+    return 42; 
+  }
+
+  method int casif8() { // Doit compiler
+    if (false) { return 43; }
+    else {}
+    return 42; 
+  }
+
+  method int casif9() { // Doit compiler
+    if (false) {}
+    else {}
+    return 42; 
+  }
+
+  method int casif10() { // Doit compiler
+    if (false) {}
+    return 42; 
+  }
+
+  method int while1() { // Doit compiler
+    while false { return 42; } 
+    return 43;
+  }
+
+  method int while2() { // Doit compiler
+    while false {}
+    return 42;
+  }
+
+/*  method int while3() { // Ne possède pas un return de type int dans chaque branche (typechecker error)
+    while false { return 42; }
+  }
+*/
+
+/*  method int while4() { // Ne possède pas un return de type int dans chaque branche (typechecker error)
+    while false {}
+  }
+*/
+
+/*  method int while5() { // Ne possède pas un return de type int dans chaque branche (typechecker error)
+    while false { return false; }
+    return 42;
+  }
+*/
+
+/*  method void while6() { // Ne possède pas un return de type int dans chaque branche (typechecker error)
+    while false { return false; }
+  }
+*/
+}
+
+class paire {
+  attribute int x;
+  attribute int y;
+
+  method void constructor(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  method int somme() {
+    return this.x + this.y;
+  }
+}
+
+class triple extends paire {
+  attribute int z;
+
+  method void constructor(int x, int y, int z) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
+
+  method int somme() {
+    return this.x + this.y + this.z;
+  }
+
+  method int produit() {
+    return this.x * this.y * this.z;
+  }
+}
+
+main {
+  fact_global = 1;
+  counter = 5;
+  n = 5;
+  y = new point(3, 5);
+  p = new point(2, 1);
+  yy = newc point(3);
+  barba = new barbamama(43);
+
+  // Affiche 42, vérifie qu'une méthode peut porter le même nom que sa classe
+  p.point();
+
+  // Affiche 43, vérifie qu'un attribut peut porter le même nom que sa classe
+  print(barba.barbamama);
+
+  // Affiche 3, 5, vérifie la définition des attributs via new
+  print(y.x);
+  print(y.y);
+
+  // Affiche 6, 10, vérifie la bonne utilisation du constructeur via newc
+  print(yy.x);
+  print(yy.y);
+  
+  // Affiche 100
+  p.test_void(); 
+
+  // Affiche 1, 2 fois 
+  print(fact_global);
+  p.test_global();
+
+  // Affiche 120, 3 fois
+  res_fact = p.fact(n);
+  print(res_fact);
+
+  res_fact = p.factTerminale(n,1);
+  print(res_fact);
+
+  p.fact_globale();
+
+  // Affiche 512
+  n = p.test_instr_et_acces_globaux(n);
+  print(n);
+
+  // Affiche 7
+  n = p.test_locals();
+  print(n);
+
+  /* Ce test et le précédent testent les variables globales, 
+     dans une méthode on donne la priorité aux variables locales */
+
+  // Affiche 5
+  print(a);
+  
+  // Affiche 54
+  p.x = 3 + p.x;
+  print(48 + p.somme());
+
+  // affiche 3, puis 12, puis 60, puis 6.
+  pt = new paire(1, 2);
+  t = new triple(3, 4, 5);
+  print(pt.somme());
+  print(t.somme());
+  print(t.produit());
+  ptt = new triple(1, 2,3);
+  print(ptt.somme());
+
+/* Vérifie qu'en cas de classe récursive, arrête l'initialisation automatique des variables
+   pour éviter d'entrer dans une boucle infinie. Le langage est conçu pour initialiser toutes
+   les variables à une valeur par défaut autrement, y compris les classes. */
+
+  // Affiche une seule fois "La classe rec1 est récursive, arrêt de l'initialisation automatique
+  r1 = new rec1;
+  /* r1 = r1.x.x.x; */ // Renvoie une erreur car l'attribut est utilisé non initialisé, cela car rec1 est une classe récursive
+  r2 = new rec2;
+
+/* Erreurs renvoyées par le typechecker (si décommentées) */
+
+/*  b = 42; */ // Mauvais typage (typechecker error)
+/*  c = false; */ // Mauvais typage (typechecker error)
+/*  d = 42; */  // d n'est pas déclaré (typechecker error)
+/*  b = ptt.somme(); */ // Mauvais typage (typechecker error)
+/*  test.x = 5; */ // test n'est pas déclarée (typechecker error)
+/*  z = new point(1, 2); */ // z n'est pas déclarée (typechecker error)
+/*  p = new point(false, 2); */ // Mauvais type d'attribut (typechecker error)
+/*  p = new point(y, 2);  */ // Mauvais type d'attribut (typechecker error)
+/*  p = new point(2); */ // Pas le bon nombre d'arguments (typechecker error)
+/*  p = newc point(2, 2); */ // Pas le bon nombre d'arguments (typechecker error)
+/*  p.x = y; */ // Mauvais typage (typechecker error)
+/*  p.x = false; */ // Mauvais typage (typechecker error)
+/*  x = this.x; */ // this utilisé en dehors d'une classe (typechecker error)
+/*  this.x = 5; */ // this utilisé en dehors d'une classe (typechecker error)
+/*  p.some(); */ // Méthode non déclarée (typechecker error)
+/*  p = new point(2, 1, 3); */ // Pas le bon nombre d'arguments (typechecker error) 
+/*  p = new ligne(1, 2); */ // Classe non déclarée (typechecker error)
+/*  barba = newc barbamama(); */ // Classe sans constructor (typechecker error)
+/*  p.test = 5; */ // Attribut non déclaré (typechecker error)
+/*  print(ay); */ // Variable non déclarée (typechecker error)
+/*  act_global.test(); */ // Variable non déclarée (typechecker error)
+/*  print(p); */ // Print d'un type différent de int, bool ou void (typechecker error)
+
+/* Test de l'arithmétique de base */
+
+  a = 42;
+  c = 42;
+  p.x = 2;
+  p.y = 2;
+  y.x = 2;
+  y.y = 2;
+
+  /* Affiche 42 */
+  print(40 - 2 - (3 + 1) * 4 / 8 + 6);  
+
+  /* Binop -, affiche 35 */
+  print(40-5);
+
+  /* Binop +, affiche 45 */
+  print(40+5); 
+
+  /* Binop *, affiche 200 */
+  print(40*5); 
+
+  /* Binop /, affiche 8 */
+  print(40/5); 
+
+  /* Binop Rem, affiche 5 */
+  print(40%7); 
+
+  /* Unop -, affiche -5, 5 et -5 */
+  print(---5);
+  print(--5);
+  print(-5);
+
+  /* Binop ==, affiche True, False, True, True, True, False */
+  print(true == true);
+  print(42 == 43);
+  print(a == a);
+  print(a == c);
+  print(p == p);
+  print(p == y);
+
+  /* Binop !=, affiche False, True, False, False, False, True */
+  print(true != true);
+  print(true != false);
+  print(b != b);
+  print(a != c);
+  print(p != p);
+  print(p != y);
+
+  /* Binop &&, affiche True, False, False, False */
+  print(true && true);
+  print(true && false);
+  print(false && true);
+  print(false && false);
+
+  /* Binop ||, affiche True, True, True, False */
+  print(true || true);
+  print(true || false);
+  print(false || true);
+  print(false || false);
+
+  /* Unop !, affiche False, True, True */
+  print(!true);
+  print(!false);
+  print(!!true);
+
+  /* Binop ===, affiche True, True, False, True, False */
+  print(p === p);
+  print(p === y);
+  p.x = 3;
+  print(p === y);
+  print(a === c);
+  print(a === 43);
+
+  /* Binop =/=, affiche True, False, False, False, True */
+  print(p =/= y);
+  p.x = 2;
+  print(p =/= p);
+  print(p =/= y);
+  print(a =/= c);
+  print(a =/= 43);
+
+  /* Comparaisons d'égalité avec void, affiche True, False, True, False */
+  print(p.vvoid() == p.vvoid());
+  print(p.vvoid() != p.vvoid());
+  print(p.vvoid() === p.vvoid());
+  print(p.vvoid() =/= p.vvoid());
+
+
+/* Erreurs renvoyées par le typechecker  (si décommentées) */
+
+/*  b = false > 0; */  // Mauvais type à gauche (typechecker error)
+/*  b = false > false; */ // Mauvais type des deux côtés (typechecker error)
+/*  b = 0 > false; */ // Mauvais type à droite (typechecker error)
+/*  b = false >= 0; */ // ...
+/*  b = false >= false; */ // ...
+/*  b = 0 >= false; */ // ...
+/*  b = false < 0; */ // ...
+/*  b = false < false; */ // ...
+/*  b = 0 < false; */ // ...
+/*  b = false <= 0; */ // ...
+/*  b = false <= false; */ // ...
+/*  b = 0 <= false; */ // ...
+/*  b = 0 && false; */ // ...
+/*  b = 0 && 0; */ // ...
+/*  b = false && 0; */ // ...
+/*  b = 0 || false; */ // ...
+/*  b = 0 || 0; */ // ...
+/*  b = false || 0; */ // ...
+/*  b = !5; */ // Mauvais type (typechecker error)
+/*  c = -false; */ // Mauvais type (typechecker error)
+/*  c = 1 + false; */ // ...
+/*  c = false + false; */ // ...
+/*  c = false + 1; */ // ...
+/*  c = 1 - false; */ // ...
+/*  c = false - false; */ // ...
+/*  c = false - 1; */ // ...
+/*  c = 1 * false; */ // ...
+/*  c = false * false; */ // ...
+/*  c = false * 1; */ // ...
+/*  c = 1 / false; */ // ...
+/*  c = false / false; */ // ...
+/*  c = false / 1; */ // ...
+/*  c = 1 % false; */ // ...
+/*  c = false % false; */ // ...
+/*  c = false % 1; */ // ...
+/*  b = b == c; */ // ...
+/*  b = c == b; */ // ...
+/*  b = b != c; */ // ...
+/*  b = c != b; */ // ...
+/*  b = pt == t; */ // ...
+/*  b = pt != t; */ // ...
+/*  b = 42 === false; */ // ...
+/*  b = false =/= 42; */  // ...
+/*  b = p === t; */ // ...
+/*  b = p =/= t; */ // ...
+/*  b = p.fact_globale() == 42; */ // ...
+/*  b = p.fact_globale() != 42; */ // ...
+/*  b = p.fact_globale() === 42; */ // ...
+/*  b = p.fact_globale() =/= 42; */ // ...
+}

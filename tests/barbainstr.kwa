@@ -1,0 +1,16 @@
+barbavar barbaint a;
+barbavar barbaint n;
+barbavar barbaint acc;
+
+barbamain {
+  a = 2;
+  n = 9;
+  acc = 1;
+  barbawhile (n != 0) {
+    barbaif n%2 != 0 { acc = a*acc; } barbaelse {}
+    a = a*a;
+    n = n/2;
+  }
+  barbaif barbatrue { barbaprint(barbatrue); }
+  barbaprint(acc);
+}

@@ -1,0 +1,46 @@
+barbavar paire p;
+barbavar paire pt;
+barbavar triple t;
+
+barbaclass paire {
+  barbaattribute barbaint x;
+  barbaattribute barbaint y;
+
+  barbamethod barbavoid constructor(barbaint x, barbaint y) {
+    barbathis.x = x;
+    barbathis.y = y;
+  }
+
+  barbamethod barbaint somme() {
+    barbareturn barbathis.x + barbathis.y;
+  }
+}
+
+barbaclass triple barbaextends paire {
+  barbaattribute barbaint z;
+
+  barbamethod barbavoid constructor(barbaint x, barbaint y, barbaint z) {
+    barbathis.x = x;
+    barbathis.y = y;
+    barbathis.z = z;
+  }
+
+  barbamethod barbaint somme() {
+    barbareturn barbathis.x + barbathis.y + barbathis.z;
+  }
+
+  barbamethod barbaint produit() {
+    barbareturn barbathis.x * barbathis.y * barbathis.z;
+  }
+}
+
+barbamain {
+  p = barbanew paire(1, 2);
+  t = barbanew triple(3, 4, 5);
+  barbaprint(p.somme());
+  barbaprint(t.somme());
+  barbaprint(t.produit());
+  pt = barbanew triple(1, 2,3);
+  barbaprint(pt.somme());
+  // affiche 3, puis 12, puis 60, puis 6.
+}

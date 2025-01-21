@@ -1,0 +1,6 @@
+main {
+  print(42);
+  print(-5+5);
+  print(-5-5);
+}
+

@@ -1,0 +1,51 @@
+var int l, m;
+var int n;
+var serie o;
+var serie2 p;
+var int i;
+var bool j;
+
+class serie {
+  attribute int l, m;
+  attribute int n;
+
+  method void test() {
+    var int l, m;
+    var int n;
+    l = 4;
+    m = 5;
+    n = 6;
+    print(l);
+    print(m);
+    print(n);
+  }
+}
+
+class serie2 {
+  attribute int x;
+  attribute int y;
+
+  method void test() {
+  }
+}
+
+main {
+  p = new serie2(1, 2);
+  print(p.x);
+  o = new serie(1, 2, 3);
+  print(o.l);
+  print(o.m);
+  print(o.n);
+  l = 42;
+  m = 43;
+  n = 44;
+  o.test();
+  print(l);
+  print(m);
+  print(n);
+/*  
+  x = 1;
+  x = y+2;
+  y = y*(x+4);
+  print(y); // Affiche 42 */
+}

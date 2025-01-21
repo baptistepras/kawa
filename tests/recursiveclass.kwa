@@ -1,0 +1,17 @@
+var point p;
+var segment s;
+
+class point {
+  attribute point x;
+  attribute point y;
+}
+
+class segment {
+    attribute segment x;
+}
+
+main {
+  p = new point;
+  p = p.x.x;
+  s = new segment;
+}
