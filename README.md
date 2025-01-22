@@ -10,7 +10,7 @@ Then do `./kawai.exe <name_of_file>` to execute the code on a file where code is
 
 You can add the option `-env` to print the environment at the beginning and end of the execution. For example, do `./kawai.exe tests/fulltest.kwa -env`.
 
-You can also directly use it on my website in the `Projects` section: https://baptistepras.github.io/mywebsite/
+You can also directly use it on my website in the `Projects` section: https://baptistepras.fr
 
 The execution of kawai.exe will first launch the lexer, then the parser, then the type checker and finally the interpreter, and will return any result printed or any error encountered. 
 
