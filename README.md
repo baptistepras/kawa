@@ -1,26 +1,21 @@
-# Java-like interpreter:
+# Kawa
 
-This project was made during my third year of university. It consists in a small programming language inspired by Java, that accepts a basic arithmetic, instructions, classes, while and extends.
+An interpreter for Kawa, a small object-oriented language inspired by Java, written in OCaml. Kawa has typed global and local variables, arithmetic and boolean expressions, conditionals and while loops, classes with attributes and methods, and inheritance with `extends`. A program goes through a lexer (ocamllex), a parser (Menhir), a type checker and an interpreter, and any error is reported at the stage where it occurs.
 
-# How to use it ?
+You can also try it in the browser, in the Projects section of https://baptistepras.fr
 
-First do `dune build` to compile the code. `dune clean` will remove any file related to the compilation.
+## Usage
 
-Then do `./kawai.exe <name_of_file>` to execute the code on a file where code is written in Kawa. The file extension must be `.kwa`.
+```bash
+dune build
+./kawai.exe tests/fulltest.kwa          # run a Kawa program (.kwa)
+./kawai.exe tests/fulltest.kwa -env     # also print the environment before and after
+dune clean
+```
 
-You can add the option `-env` to print the environment at the beginning and end of the execution. For example, do `./kawai.exe tests/fulltest.kwa -env`.
+## Tests
 
-You can also directly use it on my website in the `Projects` section: https://baptistepras.fr
-
-The execution of kawai.exe will first launch the lexer, then the parser, then the type checker and finally the interpreter, and will return any result printed or any error encountered. 
-
-# What is full fulltest.kwa ? 
-
-`fulltest.kwa` is a 600 lines code written in Kawa to explore all facets of the language. It contains tens of tests, + tens of tests that are not executed because they are the type of errors you should avoid.
-
-Even though other test files exist, this one has all tests made in other files and is the best one to fully understand the language.
-
-Explanations in fulltest.kwa are in French. A global explanation of the language in English can be found here.
+`tests/` holds Kawa programs for each feature. `tests/fulltest.kwa` gathers all of them in about 600 lines, including commented programs that the type checker must reject. Its comments are in French, and the sections below describe the language in English.
 
 # Language Functionalities
 
@@ -202,3 +197,7 @@ var int x;
 barbavar barbaint x;
 var barbaint x;
 ```
+
+## License
+
+MIT, see [LICENSE](LICENSE).
